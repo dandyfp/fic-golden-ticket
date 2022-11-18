@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:example/core.dart';
+import 'package:flutter/services.dart';
 
 class LtfmProductFormView extends StatefulWidget {
   const LtfmProductFormView({Key? key}) : super(key: key);
@@ -10,17 +11,64 @@ class LtfmProductFormView extends StatefulWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("LtfmProductForm"),
-        actions: const [
+        actions: [
           //! 5. Tambahkan tombol Save
           //! 6. Beri padding/margin pada tombol Save sebanyak 10
           //! 7. Panggil controller.save() ketika tombol di klik
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.send),
+              label: const Text("Save"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey,
+              ),
+              onPressed: () {
+                controller.setState(() {
+                  controller.save();
+                });
+              },
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            children: const [
+            children: [
+              Card(
+                child: Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      QTextField(
+                        label: "Product name",
+                        hint: "Product",
+                        value: "",
+                        onChanged: (value) {},
+                      ),
+                      TextField(
+                        decoration: const InputDecoration(
+                          labelText: "Price",
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: "Description",
+                        ),
+                        maxLength: 200,
+                        maxLines: 5,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
               //! 1. Buat sebuah Card, tambahkan Column di dalamnya
               //! 2. Tambahkan padding.all 20.0
               //! 3. Di dalam column yang ada di dalam Card, tambahkan field ini:
@@ -28,7 +76,7 @@ class LtfmProductFormView extends StatefulWidget {
               //? textfield price (hanya bisa menerima angka)
               //? textfield description (textfield dengan maxlines: 15)
               //! 4. Tambahkan dropdown untuk memilih category, gunakan kode ini:
-              /*
+
               QDropdownField(
                 label: "Category",
                 hint: "Your product category",
@@ -49,9 +97,9 @@ class LtfmProductFormView extends StatefulWidget {
                 ],
                 onChanged: (value, label) {},
               ),
-              */
+
               //! 5. Tambahkan radio untuk menentukan status product, gunakan kode ini:
-              /*
+
               QRadioField(
                 label: "Status",
                 validator: Validator.atLeastOneitem,
@@ -67,7 +115,6 @@ class LtfmProductFormView extends StatefulWidget {
                 ],
                 onChanged: (value, label) {},
               ),
-             */
             ],
           ),
         ),

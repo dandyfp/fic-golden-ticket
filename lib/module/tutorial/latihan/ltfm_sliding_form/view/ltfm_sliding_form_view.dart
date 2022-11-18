@@ -28,8 +28,8 @@ class LtfmSlidingFormView extends StatefulWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Apply Leave",
                         style: TextStyle(
                           fontSize: 14.0,
@@ -56,6 +56,30 @@ class LtfmSlidingFormView extends StatefulWidget {
 
                       //! 6. Jika Container mengecil ketika tombol di klik
                       //? maka task ini selesai!
+                      QDatePicker(
+                        label: "Leave Date",
+                        onChanged: (value) {},
+                      ),
+                      QTextField(
+                        label: "Reason",
+                        onChanged: (value) {},
+                      ),
+                      const Divider(),
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.submitted = !controller.submitted;
+                          controller.update();
+                        },
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 40,
+                          child: const Center(
+                            child: Text(
+                              "Apply",
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
